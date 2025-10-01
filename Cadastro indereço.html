@@ -63,6 +63,8 @@
         <input type="text" id="cidade" name="cidade"> <br>
         <label for="estado">Estado:</label>
         <input type="text" id="estado" name="estado">
+        <label for="estado">DDD:</label>
+        <input type="text" id="ddd" name="ddd">
 </form>
 
 <script>
@@ -76,12 +78,22 @@
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                document.getElementById("logradouro").value = data.logradouro;
-                document.getElementById("bairro").value = data.bairro;
-                document.getElementById("cidade").value = data.localidade;
-                document.getElementById("estado").value = data.estado;
+                    document.getElementById("logradouro").value = data.logradouro || '';
+                    document.getElementById("bairro").value = data.bairro || '';
+                    document.getElementById("cidade").value = data.localidade || '';
+                    document.getElementById("estado").value = data.estado || '';
+                    document.getElementById("ddd").value = data.ddd || '';
+                    mudaborda(-1)
             })
-            //.catch(error => console.error("Erro:", error));
+            .catch(error => mudaborda(1));
         });
+
+        function mudaborda(cor){
+            if(cor += 1){
+                campoCep.style.border = "4px solid red";
+            }else{
+                campoCep.style.border = "4px solid green"
+            }
+        }
 </script>
 </body>
