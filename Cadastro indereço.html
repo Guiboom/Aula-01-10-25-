@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscador de CEP</title>
     <style>
-    body {
+        body {
             background: linear-gradient(135deg, #79b7d5ff, #165a6fff);
             color: #fff;
             display: flex;
@@ -39,7 +40,8 @@
         }
 
         /* Inputs */
-        input[type="number"], input[type="text"] {
+        input[type="number"],
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             border-radius: 6px;
@@ -50,7 +52,8 @@
         }
     </style>
 </head>
-    <body>
+
+<body>
     <form>
         <h1>Cadastro de Endereço</h1>
         <label for="cep">Digite o CEP:</label>
@@ -65,35 +68,35 @@
         <input type="text" id="estado" name="estado">
         <label for="estado">DDD:</label>
         <input type="text" id="ddd" name="ddd">
-</form>
+    </form>
 
-<script>
-    
-     // 1. Selecionar o elemento pelo ID
-    var campoCep = document.getElementById('cep');
-    // 2. Adicionar o event listener para o evento 'blur'(executado quando é retirado o mouse)
-    campoCep.addEventListener('blur', function() {
-        let valorCep  = campoCep.value; // pegar o valor do campoCep
-        fetch("https://viacep.com.br/ws/"+valorCep+"/json/")
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
+    <script>
+
+        // 1. Selecionar o elemento pelo ID
+        var campoCep = document.getElementById('cep');
+        // 2. Adicionar o event listener para o evento 'blur'(executado quando é retirado o mouse)
+        campoCep.addEventListener('blur', function () {
+            let valorCep = campoCep.value; // pegar o valor do campoCep
+            fetch("https://viacep.com.br/ws/" + valorCep + "/json/")
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
                     document.getElementById("logradouro").value = data.logradouro || '';
                     document.getElementById("bairro").value = data.bairro || '';
                     document.getElementById("cidade").value = data.localidade || '';
                     document.getElementById("estado").value = data.estado || '';
                     document.getElementById("ddd").value = data.ddd || '';
                     mudaborda(-1)
-            })
-            .catch(error => mudaborda(1));
+                })
+                .catch(error => mudaborda(1));
         });
 
-        function mudaborda(cor){
-            if(cor += 1){
+        function mudaborda(cor) {
+            if (cor += 1) {
                 campoCep.style.border = "4px solid red";
-            }else{
+            } else {
                 campoCep.style.border = "4px solid green"
             }
         }
-</script>
+    </script>
 </body>
